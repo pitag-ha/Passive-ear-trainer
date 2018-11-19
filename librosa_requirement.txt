@@ -1,3 +1,4 @@
 #wich conda environment:
 librosa==8.28
 conda install -c conda-forge librosa
+#pip librosa doesn't work as well
