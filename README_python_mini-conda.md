@@ -15,8 +15,8 @@ All [Anaconda packages](https://docs.continuum.io/anaconda/pkg-docs) are support
 ## ☤ Deploy this Application:
 
 Deploy with the [Container Registry and Runtime](https://devcenter.heroku.com/articles/container-registry-and-runtime):
-
-     ($ heroku plugins:install heroku-container-registry)
+     $ sudo usermod -a -G docker $USER
+     ($ heroku plugins:install heroku-container-registry) not working anymore...
      $ heroku plugins:install @heroku-cli/plugin-container-registry
      $ heroku container:login
      

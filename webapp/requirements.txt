@@ -1,6 +1,10 @@
-gunicorn
-Flask
-Jinja2
-Werkzeug
-distribute
-wsgiref
+#gunicorn
+#Flask
+#Jinja2
+#Werkzeug
+#distribute
+#wsgiref
+#future
+#numpy
+#cython
+vamp>=1.1.0

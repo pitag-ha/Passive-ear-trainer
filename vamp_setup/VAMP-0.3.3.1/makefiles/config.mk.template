@@ -1,0 +1,18 @@
+#########################################
+# VAMP Configuration Variables 
+#
+# Lance Parsons <lparsons@princeton.edu)
+#########################################
+
+# Applications
+CUTADAPT:=cutadapt
+FASTX_ARTIFACT_FILTER:=fastx_artifacts_filter
+FASTQC:=fastqc
+BOWTIE:=bowtie
+BOWTIE_BUILD:=bowtie-build
+
+# Requires BioPython
+PAIRED_SEQUENCE_MATCH:=paired_sequence_match.py
+
+# Requires customized version
+TQSFASTQ:=TQSfastq_vamp.py

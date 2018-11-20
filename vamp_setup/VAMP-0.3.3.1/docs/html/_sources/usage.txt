@@ -1,0 +1,161 @@
+Usage
+#####
+
+PreProcessing
+*************
+This step removes artifacts and contaminate sequences from you data in an effort
+to speed up and improve the quality of the resulting assemblies.
+
+1. Run ``setup_preprocessing.py``
+    * You will be asked to provide
+        * Forward read file - The filename of a fastq file (gzipped is
+          ok) containing the forward reads from sequencing
+        * Reverse read file - If you performed paired-end sequencing,
+          this is the filename of the fastq file containing the reverse read.
+          Note, that the reads must be in matching order to the forward read
+          file and the read ids should be the same (characters after a space in
+          the read id are ignored for matching purposes).
+        * Output directory - The location where the processed files
+          will be stored
+        * Output prefix - The basename of the output files (typically
+          the project or strain name)
+        * Host reference - Either a FASTA file or the basename of a
+          Bowtie index. Sequences will be aligned to this reference and any
+          that match will be removed from the analysis. This is typically used
+          to remove host contamination.
+    * The script will generate a makefile in the specified output
+      directory called ``PREFIX_preprocess.mk``.
+
+2. Execute resulting makefile
+    * You can view the resulting makefile to see the various parameters
+      that will be used and edit any configuration options.
+    * Running ``make -f PREFIX_preprocess.mk`` will execute the various
+      preprocessing steps. You make take advantage of multiple processors by
+      using the ``-j N`` options to specify the number of threads for ``make``
+      to use.
+    * To cleanup intermediate files: ``make -f analysis.mk clean``
+
+The PreProcessing consists of the following steps. After each step, FastQC is
+run to generate a summary of the result.
+    1. Run `Cutadapt <https://github.com/marcelm/cutadapt>`_ to trim adapter
+    sequences from the ends of reads. (Intermediate, output is discarded). 2.
+    Run `Fastx Toolkit <http://hannonlab.cshl.edu/fastx_toolkit/>`_'s artifact
+    filter to remove low complexity sequences. 3. If paired reads are used,
+    match up paired reads and set unpaired reads aside. 4. Map reads using
+    `Bowtie <http://bowtie-bio.sourceforge.net/index.shtml>`_ to the specified
+    host reference, keeping only those reads (or pairs) that did not map.
+
+
+Short Read de novo Assembly
+***************************
+This step uses the
+`SSAKE <http://www.bcgsc.ca/platform/bioinfo/software/ssake>`_ short read
+assembler to build contigs from the preprocessed reads. It does this by running
+SSAKE with various parameter settings and combining the results.
+
+1. ``multi_ssake.py`` 2. Run :ref:`clean_multi_ssake.sh` to cleanup intermediate
+fasta files (interactive, do NOT use qsub)
+
+*TODO - Additional Detail Needed*
+
+
+Contig Assembly
+***************
+The resulting contigs from the previous SSAKE assemblies are often redundant and
+can be stitched together using a long-read assembler. We have had success using
+`Gap4 <http://staden.sourceforge.net/manual/gap4_unix_toc.html>`_ from the
+`Staden <http://bowtie-bio.sourceforge.net/index.shtml>`_ package.
+
+1. Assemble ``ssake_combined.contigs`` (using Gap4 or other long read assembler)
+
+*TODO - Additional Detail Needed*
+
+
+Reference Guided Scaffold Assembly
+**********************************
+Once you have generated the best contigs you can with
+`SSAKE <http://www.bcgsc.ca/platform/bioinfo/software/ssake>`_ and
+`Gap4 <http://staden.sourceforge.net/manual/gap4_unix_toc.html>`_, the next
+step is to put them together into a scaffold. To do this, VAMP utilizes the
+reference genome of a similar strain to determine how to order the contigs.
+
+Align Contigs to Reference
+==========================
+The first step is to align contigs to a reference genome and output the result
+in a `MAF <http://genome.ucsc.edu/FAQ/FAQformat.html#format5>`_ formatted file.
+There are many options for alignment tools, however, we have had success with
+`Mugsy <http://mugsy.sourceforge.net/>`_, a very fast multiple whole genome
+alignment tool.
+
+Stitch Together Scaffold
+========================
+Once you have aligned the contigs to the reference, the next step is to stitch
+together the various alignment blocks into a scaffold.  The :ref:`maf_net.py`
+utility does this by reassembling the reference sequence from the MAF blocks
+and using the highest scoring block for each location in the genome to assemble
+a scaffold genome.   
+
+Output:
+    * Aligned Fasta File - ``BASENAME.net.afa`` This file contains an
+      aligned fasta file created by stitching together MAF blocks based on the
+      reference sequence.  Where two blocks overlap, the higher scoring block
+      is used.
+
+Optional Output (one per species):
+    * Consensus Sequence - ``SPECIES.consensus.fasta`` A FASTA file
+      containing the consensus sequence for this species. N's in the sequence
+      represent sections where no contigs mapped to a section of the reference
+      (i.e. potential gaps in the scaffold).
+
+    * Consensus Contig Composition GFF -
+      ``SPECIES.consensus_contig_composition.gff`` GFF formatted file describes
+      intervals in the SPECIES genome. The attributes contain information about
+      the contigs used to determine the sequence in this interval.  The
+      attributes are:
+            * src_seq
+            * src_seq_start
+            * src_seq_end
+            * src_strand
+            * src_size
+            * maf_block
+            * block_start
+            * block_end
+            * ref_src
+            * ref_start
+            * ref_end
+            * ref_strand
+
+    * Consensus Contig Composition Summary -
+      ``SPECIES.consensus_contig_composition_summary.txt`` Tab delimited file
+      with the following columns that describes intervals in the SPECIES genome
+      and the contigs that were used for the sequence.
+            * seq - sequence id of the interval in the SPECIES
+              genome
+            * start - start position of the interval
+            * end - end position of the interval
+            * contig - contig id that was used to "build" this
+              interval.  If *None*, that means no contig was found for the
+              analagous region in the reference.
+            * contig_start - the start position of the contig that
+              aligned to this start interval
+            * contig_end - the end position of the contig that
+              aligned to the end position of this interval
+            * contig_strand - the direction that the contig
+              aligned to the reference (if '-', the reverse complement of the
+              contig aligned to the reference in this interval)
+            * contig_size - the full size of the contig (including
+              those bases that did not aligned to this interval)
+
+
+Genome Annotation and Comparison
+********************************
+Once a draft of a genome has been completed, it can be useful to migrate
+annotations from an annotated reference to the new genome.  In addition, this
+step generates a summary of the changes at the nucleic acid as well as amino
+acid level.
+
+Run :ref:`compare_genomes.py` to migrate annotations and generate a list of
+differences between two species. The script requires an aligned fasta file
+(typically use the one generated from the previous scaffold stitching step) and
+a GFF file of features (genes, exons, etc.) to migrate.
+

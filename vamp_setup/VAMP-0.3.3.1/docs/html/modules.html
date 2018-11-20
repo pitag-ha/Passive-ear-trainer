@@ -1,0 +1,279 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Modules &mdash; VAMP 0.3.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="VAMP 0.3.3.1 documentation" href="index.html" />
+    <link rel="prev" title="Commands" href="command_index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="command_index.html" title="Commands"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">VAMP 0.3.3.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-vamp.utils">
+<span id="vamp-utils"></span><h2><a class="reference internal" href="#module-vamp.utils" title="vamp.utils"><tt class="xref py py-mod docutils literal"><span class="pre">vamp.utils</span></tt></a><a class="headerlink" href="#module-vamp.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="vamp.utils.ContigComposition">
+<em class="property">class </em><tt class="descclassname">vamp.utils.</tt><tt class="descname">ContigComposition</tt><a class="headerlink" href="#vamp.utils.ContigComposition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Association of two genomic intervals, used to represent the composition
+of one interval by another</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.find_deletions">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">find_deletions</tt><big>(</big><em>contig_composition_list</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#vamp.utils.find_deletions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find contigs with deletions and return tuple containing
+list of idicies of contigs to be replaced along with replacement. e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+ <span class="p">{</span><span class="s">&#39;seq&#39;</span><span class="p">:</span> <span class="s">&#39;chr&#39;</span><span class="p">,</span> <span class="s">&#39;start&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;end&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#39;contig&#39;</span><span class="p">:</span> <span class="s">&#39;contig1&#39;</span><span class="p">,</span>
+  <span class="s">&#39;contig_start&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#39;contig_end&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s">&#39;strand&#39;</span><span class="p">:</span> <span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;contig_size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>replaces contig_composition_list[2:3] with the new contig composition specified</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.get_sequence_length_from_maf">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">get_sequence_length_from_maf</tt><big>(</big><em>maf_file</em>, <em>reference_species</em>, <em>sequence_id</em><big>)</big><a class="headerlink" href="#vamp.utils.get_sequence_length_from_maf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return length of the reference_species.sequence_id</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.get_sequence_net_alignment">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">get_sequence_net_alignment</tt><big>(</big><em>maf_filename</em>, <em>reference_species</em>, <em>sequence_id</em>, <em>species</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#vamp.utils.get_sequence_net_alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return alignment created by stitching MAF blocks along entire sequence (including gaps)
+Also returns a list of intervals relative to the alignment that indicate the MAF block,
+block start, and block end of the source of that piece of the alignment</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.read_contig_composition_summary">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">read_contig_composition_summary</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#vamp.utils.read_contig_composition_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read contig composition summary and return attributes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.replace_alignment_with_block">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">replace_alignment_with_block</tt><big>(</big><em>alignment</em>, <em>block</em>, <em>reference_species</em>, <em>sequence_id</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#vamp.utils.replace_alignment_with_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return updated alignment, interval</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.subtract_intervals">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">subtract_intervals</tt><big>(</big><em>interval1</em>, <em>interval2</em><big>)</big><a class="headerlink" href="#vamp.utils.subtract_intervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subtract two intervals, return list of resulting intervals</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.summarize_contig_composition">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">summarize_contig_composition</tt><big>(</big><em>interval_list</em>, <em>src_tag</em>, <em>start_tag</em>, <em>end_tag</em>, <em>strand_tag</em>, <em>source_size_tag</em><big>)</big><a class="headerlink" href="#vamp.utils.summarize_contig_composition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarize the contig composition in a list of tuples
+(seq, start, end, contig, contig_start, contig_end, strand, contig_size)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.update_contig_composition_summary">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">update_contig_composition_summary</tt><big>(</big><em>contig_composition_summary</em>, <em>replacements</em><big>)</big><a class="headerlink" href="#vamp.utils.update_contig_composition_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update list of ContigComposition objects with replacements
+Replacements are a list of tuples containing a list of indicies of contigs to be replaced along with replacements
+The replacements must be non-overlapping and sorted</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="vamp.utils.update_sequence_with_replacements">
+<tt class="descclassname">vamp.utils.</tt><tt class="descname">update_sequence_with_replacements</tt><big>(</big><em>seq</em>, <em>replacements</em>, <em>replacement_seq_dict</em><big>)</big><a class="headerlink" href="#vamp.utils.update_sequence_with_replacements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update Seq object with replacements
+Replacements must be non-overlapping and sorted</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-seq_utils.convert_coordinates">
+<span id="seq-utils-convert-coordinates"></span><h2><a class="reference internal" href="#module-seq_utils.convert_coordinates" title="seq_utils.convert_coordinates"><tt class="xref py py-mod docutils literal"><span class="pre">seq_utils.convert_coordinates</span></tt></a><a class="headerlink" href="#module-seq_utils.convert_coordinates" title="Permalink to this headline">¶</a></h2>
+<p>Convert coordinates from GFF or BED file using multi-fasta alignments</p>
+</div>
+<div class="section" id="module-seq_utils.fasta_from_gff">
+<span id="seq-utils-fasta-from-gff"></span><h2><a class="reference internal" href="#module-seq_utils.fasta_from_gff" title="seq_utils.fasta_from_gff"><tt class="xref py py-mod docutils literal"><span class="pre">seq_utils.fasta_from_gff</span></tt></a><a class="headerlink" href="#module-seq_utils.fasta_from_gff" title="Permalink to this headline">¶</a></h2>
+<p>Extract fasta sequences from regions defined in GFF/BED file and output fasta to stdout</p>
+</div>
+<div class="section" id="module-seq_utils.summarize_alignments">
+<span id="seq-utils-summarize-alignments"></span><h2><a class="reference internal" href="#module-seq_utils.summarize_alignments" title="seq_utils.summarize_alignments"><tt class="xref py py-mod docutils literal"><span class="pre">seq_utils.summarize_alignments</span></tt></a><a class="headerlink" href="#module-seq_utils.summarize_alignments" title="Permalink to this headline">¶</a></h2>
+<p>SYNOPSIS</p>
+<blockquote>
+<div>TODO summarize_alignments multi_align_fasta reference_sequence [-h,&#8211;help] [-v,&#8211;verbose] [&#8211;version]</div></blockquote>
+<p>DESCRIPTION</p>
+<blockquote>
+<div>TODO This describes how to use this script. This docstring
+will be printed by the script if there is an error or
+if the user requests help (-h or &#8211;help).</div></blockquote>
+<p>EXAMPLES</p>
+<blockquote>
+<div>TODO: Show some examples of how to use this script.</div></blockquote>
+<p>EXIT STATUS</p>
+<blockquote>
+<div>TODO: List exit codes</div></blockquote>
+<p>AUTHOR</p>
+<blockquote>
+<div>TODO: lparsons &lt;<a class="reference external" href="mailto:lparsons&#37;&#52;&#48;princeton&#46;edu">lparsons<span>&#64;</span>princeton<span>&#46;</span>edu</a>&gt;</div></blockquote>
+<p>LICENSE</p>
+<blockquote>
+<div>BSD 2-Clause License <a class="reference external" href="http://www.opensource.org/licenses/BSD-2-Clause">http://www.opensource.org/licenses/BSD-2-Clause</a></div></blockquote>
+<p>VERSION</p>
+<blockquote>
+<div>$Id$</div></blockquote>
+<dl class="function">
+<dt id="seq_utils.summarize_alignments.parse_event">
+<tt class="descclassname">seq_utils.summarize_alignments.</tt><tt class="descname">parse_event</tt><big>(</big><em>event</em>, <em>reference_sequence</em>, <em>alternate_sequence</em><big>)</big><a class="headerlink" href="#seq_utils.summarize_alignments.parse_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a simple event with reference_position, reference_base, and new_base
+and determine the type and add padding if necessary (for VCF compatibility)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="seq_utils.summarize_alignments.summary_of_alignment">
+<tt class="descclassname">seq_utils.summarize_alignments.</tt><tt class="descname">summary_of_alignment</tt><big>(</big><em>alignment</em>, <em>reference_sequence_id</em><big>)</big><a class="headerlink" href="#seq_utils.summarize_alignments.summary_of_alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarizes changes in given alignment (pairwise only)
+Input: alignment = Bio.AlignIO object</p>
+<blockquote>
+<div>reference_index = index of the reference sequence in alignment (default is 1)</div></blockquote>
+<dl class="docutils">
+<dt>Output: dictionary with key for each non-reference sequence in alignment</dt>
+<dd><dl class="first last docutils">
+<dt>Each key has a dictionary with keys (match_count, mismatch_count, mismatches, contiguous_change_count)</dt>
+<dd>mismatches is list of mismatches by base: &#8216;RefBase(RefPos)NewBase&#8217;
+contiguout_change_count is the number of contiguous change &#8220;events&#8221;</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-seq_utils.utils">
+<span id="seq-utils-utils"></span><h2><a class="reference internal" href="#module-seq_utils.utils" title="seq_utils.utils"><tt class="xref py py-mod docutils literal"><span class="pre">seq_utils.utils</span></tt></a><a class="headerlink" href="#module-seq_utils.utils" title="Permalink to this headline">¶</a></h2>
+<p>Utility classes and methods for working with sequence data</p>
+<dl class="class">
+<dt id="seq_utils.utils.GenomicRegion">
+<em class="property">class </em><tt class="descclassname">seq_utils.utils.</tt><tt class="descname">GenomicRegion</tt><big>(</big><em>region_string</em><big>)</big><a class="headerlink" href="#seq_utils.utils.GenomicRegion" title="Permalink to this definition">¶</a></dt>
+<dd><p>A genomic region specified by chr:start-end, using 1-based cooredinates</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="seq_utils.utils.convert_interval_gapped_to_nongapped">
+<tt class="descclassname">seq_utils.utils.</tt><tt class="descname">convert_interval_gapped_to_nongapped</tt><big>(</big><em>seq</em>, <em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#seq_utils.utils.convert_interval_gapped_to_nongapped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take position with gaps and return position without gaps
+Uses 0-based positions</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="seq_utils.utils.convert_interval_nongapped_to_gapped">
+<tt class="descclassname">seq_utils.utils.</tt><tt class="descname">convert_interval_nongapped_to_gapped</tt><big>(</big><em>seq</em>, <em>start</em>, <em>end</em>, <em>include_end_gaps=False</em><big>)</big><a class="headerlink" href="#seq_utils.utils.convert_interval_nongapped_to_gapped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take position without gaps and return position with gaps
+Uses 0-based positions</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Modules</a><ul>
+<li><a class="reference internal" href="#module-vamp.utils"><tt class="docutils literal"><span class="pre">vamp.utils</span></tt></a></li>
+<li><a class="reference internal" href="#module-seq_utils.convert_coordinates"><tt class="docutils literal"><span class="pre">seq_utils.convert_coordinates</span></tt></a></li>
+<li><a class="reference internal" href="#module-seq_utils.fasta_from_gff"><tt class="docutils literal"><span class="pre">seq_utils.fasta_from_gff</span></tt></a></li>
+<li><a class="reference internal" href="#module-seq_utils.summarize_alignments"><tt class="docutils literal"><span class="pre">seq_utils.summarize_alignments</span></tt></a></li>
+<li><a class="reference internal" href="#module-seq_utils.utils"><tt class="docutils literal"><span class="pre">seq_utils.utils</span></tt></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="command_index.html"
+                        title="previous chapter">Commands</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/modules.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="command_index.html" title="Commands"
+             >previous</a> |</li>
+        <li><a href="index.html">VAMP 0.3.3.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Lance Parsons.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

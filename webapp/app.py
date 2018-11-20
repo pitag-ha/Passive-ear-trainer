@@ -5,6 +5,8 @@ import vamp
 import librosa
 import os 
 
+os.environ['VAMP_PATH'] = "/opt/webapp/vamp"
+
 app = Flask(__name__)
 
 # Load Dataset from scikit-learn.

@@ -1,0 +1,33 @@
+Modules
+#######
+
+:mod:`vamp.utils`
+*****************
+
+
+.. automodule:: vamp.utils
+   :members: 
+
+:mod:`seq_utils.convert_coordinates`
+************************************
+
+.. automodule:: seq_utils.convert_coordinates
+   :members:
+
+:mod:`seq_utils.fasta_from_gff`
+*******************************
+
+.. automodule:: seq_utils.fasta_from_gff
+   :members:
+   
+:mod:`seq_utils.summarize_alignments`
+*************************************
+
+.. automodule:: seq_utils.summarize_alignments
+   :members:
+
+:mod:`seq_utils.utils`
+**********************
+
+.. automodule:: seq_utils.utils
+   :members:

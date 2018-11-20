@@ -1,0 +1,6 @@
+paired-sequence-utils >= 0.1
+cutadapt >= 1.2.1
+pybedtools == 0.6
+bx-python >= 0.7.1
+BioPython >= 1.57
+Cython >= 0.17.4

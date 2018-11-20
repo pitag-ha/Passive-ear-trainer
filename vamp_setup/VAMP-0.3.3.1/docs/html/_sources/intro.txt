@@ -1,0 +1,6 @@
+Introduction
+############
+
+The Virus AsseMbly Pipeline (VAMP) (https://bitbucket.org/lance_parsons/vamp) is
+a system designed to assembly viral genomes from paired-end Illumina sequence
+data. (Paper in progress, Moriah Szpara and Lance Parsons).

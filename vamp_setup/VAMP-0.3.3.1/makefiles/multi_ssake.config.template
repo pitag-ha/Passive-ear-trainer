@@ -1,0 +1,16 @@
+[DEFAULT]
+qsub_options = -terse -cwd
+
+[TQS]
+min_qual = 20 30
+min_consec = 20
+
+[SSAKE]
+ssake_path = SSAKE
+ssake_options = -w 10
+min_overlap = 20 16
+trim = 0 2
+qsub_options = -l gb=40 -terse -cwd
+
+[FASTX]
+fastx_collapser_path = fastx_collapser
