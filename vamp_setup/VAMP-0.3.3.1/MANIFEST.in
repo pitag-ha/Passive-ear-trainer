@@ -1,4 +1,0 @@
-include *.txt
-include distribute_setup.py
-graft makefiles/
-graft docs/html/

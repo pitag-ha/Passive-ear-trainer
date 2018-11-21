@@ -1,11 +1,12 @@
 from flask import Flask, jsonify
+from flask import render_template
 from sklearn import datasets, svm
 import numpy as np
 import vamp
 import librosa
-import os 
+#import os 
 
-os.environ['VAMP_PATH'] = "/opt/webapp/vamp"
+#os.environ['VAMP_PATH'] = "/opt/webapp/vamp"
 
 app = Flask(__name__)
 
@@ -20,11 +21,15 @@ def hello():
 
     # return jsonify({'prediction': repr(prediction)})
 
-    vamp_plugins = vamp.list_plugins()
+    #vamp_plugins = vamp.list_plugins()
 
-    #song = librosa.load('/home/sonja/Dropbox/RC/Passive ear trainer/Songs/Ska-p Los hijos bastardos de la globalizacion con Letra-upnPasIYeMc.m4a')
-    #some_samples = song[0][100:120]
-    return f'{vamp_plugins}'
+    song = librosa.load('/opt/Songs/Kuh muht-TdheW61w4Co.m4a')
+    some_samples = song[0][10000:10020]
+    vamp_plugins = vamp.list_plugins()
+    #return 'Some samples from my song: {} /n My vamp plugins: {}'.format(some_samples, vamp_plugins)
+    #return 'hello'
+
+    return render_template('test.html', samples=some_samples, plugins=vamp_plugins)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

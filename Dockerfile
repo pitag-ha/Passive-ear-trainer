@@ -1,20 +1,27 @@
-FROM continuumio/miniconda
+FROM continuumio/miniconda3
 
-# Grab requirements.txt.
-ADD ./webapp/requirements.txt /tmp/requirements.txt
+# Grab requirements.txt. In case of using miniconda, have the following line uncommented:
+ADD ./webapp/requirements_py2.txt /tmp/requirements.txt
 
-#RUN /bin/sh -c pip install -qr /tmp/requirements.txt
+#In case of using miniconda3, have the following line uncommented:
+ADD ./webapp/requirements_py3.txt /tmp/requirements.txt
 
 # Install dependencies
-#RUN pip install --upgrade pip
-#RUN pip install --upgrade setuptools
-RUN pip install -qr /tmp/requirements.txt
+RUN apt-get -y update
 
-#ADD ./vamp_setup/VAMP-0.9.0 /tmp/vamp_setup
-#RUN python /tmp/vamp_setup/setup.py install
+#Necessary to pip install vamp:
+RUN apt-get -y install --reinstall build-essential=12.3
 
-# Add our code
+RUN pip install --upgrade pip
+RUN pip install numpy==1.15.4
+RUN pip install -r /tmp/requirements.txt
+
+#Grab vamp plugins
+add ./vamp_plugins/ /usr/local/lib/vamp/
+
+# Grab code and songs
 ADD ./webapp /opt/webapp/
+ADD ./Songs /opt/Songs/
 WORKDIR /opt/webapp
 
 RUN conda install scikit-learn
